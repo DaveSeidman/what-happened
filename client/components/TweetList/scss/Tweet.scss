@@ -1,0 +1,91 @@
+@import '../../../styles/colors';
+
+.tweet {
+  display: block;
+  position: relative;
+  box-shadow: 0 .5vw 2vw rgba(0,0,0,.1);
+  border-radius: .5rem;
+  margin: 1rem 0 3rem;
+  padding: 1rem 2rem;
+  
+  &-user {
+    display: flex;
+    
+    &-image {
+      width: 3rem;
+      height: 3rem;
+      border-radius: .5rem;
+    }
+    
+    &-info {
+      margin-left: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      
+      &-name {
+        font-size: 1.25rem;
+        font-weight: 400;
+      }
+      &-handle {
+        font-size: 1rem;
+        font-weight: 200;
+        color: $lightgray;
+      }
+    }
+  }
+  
+  &-text {
+    margin: 1rem 0;
+  }
+  
+  &-stats {
+    & > div {
+      display: inline-block;
+      margin-right: 1rem;
+      
+      & h1 {
+        font-size: 1.5rem;
+        color: $lightblue;
+      }
+    }
+  }
+  
+  &-control {
+    
+    text-align: right;
+    
+    &-approve {
+      background-color: $lightblue;
+      &:hover {
+        background-color: lighten($lightblue, 5%);
+      }
+      &:active {
+        background-color: darken($lightblue, 5%);
+      }
+    }
+    
+    &-reject {
+      background-color: $darkred;
+      &:hover {
+        background-color: lighten($darkred, 5%);
+      }
+      &:active {
+        background-color: darken($darkred, 5%);
+      }
+    }
+  }
+  
+  button {
+    color: $white;
+    outline: 0;
+    cursor: pointer;
+    border: 0;
+    border-radius: .25rem;
+    padding: .5rem 1rem;
+    margin: .5rem;
+    text-transform: uppercase;
+    transition: background-color .25s;
+
+  }
+}
