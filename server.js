@@ -12,13 +12,13 @@ let token = undefined
 mongoose.Promise = Promise
 
 mongoose.connect(
-  `mongodb://${config.mongo.user}:${config.mongo.pass}@` + 
-  `cluster0-shard-00-00-xwdmh.mongodb.net:27017,` + 
+  `mongodb://${config.mongo.user}:${config.mongo.pass}@` +
+  `cluster0-shard-00-00-xwdmh.mongodb.net:27017,` +
   `cluster0-shard-00-01-xwdmh.mongodb.net:27017,` +
   `cluster0-shard-00-02-xwdmh.mongodb.net:27017/` +
   `${config.mongo.db}?` +
-  `ssl=true&` + 
-  `replicaSet=Cluster0-shard-0` + 
+  `ssl=true&` +
+  `replicaSet=Cluster0-shard-0` +
   `&authSource=admin`, { useMongoClient: true }
 ).then(result => {
   console.log('connected!')
@@ -54,14 +54,14 @@ app.get('/', (req, res) => {
 app.get('/getApprovedTweets', getApprovedTweets)
 app.get('/getAllTweets', getAllTweets)
 app.get('/lookForNewTweets', function(req, res) {
-  
+
   init()
   res.header("Access-Control-Allow-Origin", "*")
   res.send('hey there')
 })
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000')
+  console.log('tweet server listening on port 3000')
 })
 
 
@@ -76,7 +76,7 @@ function getAllTweets(req, res) {
     if(err) return console.log(err)
     res.header("Access-Control-Allow-Origin", "*")
     res.send(tweets)
-  })  
+  })
 }
 
 
@@ -86,14 +86,14 @@ function getAllTweets(req, res) {
 
 
 function lookForNewTweets() {
-  
+
   console.log('looking for new tweets')
-  if(!token) 
+  if(!token)
   getToken() // TODO: probably don't need to get a new token every time
   .then(getTweets)
   .then(storeTweets)
-  
-  else 
+
+  else
   getTweets(token)
   .then(storeTweets)
 }
@@ -103,10 +103,10 @@ function lookForNewTweets() {
 
 
 
-// Twitter stuff 
+// Twitter stuff
 function getToken() {
   console.log('getting twitter token')
-  
+
   return new Promise(function(resolve, reject) {
     var options = {
       url: 'https://api.twitter.com/oauth2/token',
@@ -114,20 +114,20 @@ function getToken() {
         'Authorization': 'Basic ' + twitterSecret,
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
       body: 'grant_type=client_credentials' }
-        
+
     request.post(options, function(error, response, body) {
-      if(error) 
+      if(error)
         reject(error)
-      
+
       token = body
       resolve(body)
     })
   })
 }
-  
+
 function getTweets(response) {
   console.log('getting tweets')
-  
+
   return new Promise(function(resolve, reject) {
     const token = JSON.parse(response).access_token
     const twitter_api = 'https://api.twitter.com/1.1/search/tweets.json'
@@ -143,9 +143,9 @@ function getTweets(response) {
       }
     }
     request(options, function(error, response, body) {
-      if(error) 
+      if(error)
       reject(error)
-      
+
       resolve(body)
     })
   })
@@ -153,19 +153,19 @@ function getTweets(response) {
 
 function storeTweets(response) {
   console.log('put tweets in db')
-  
-  if(!response) 
+
+  if(!response)
     return console.log('no tweets')
-  
+
   console.log(`found ${response.statuses.length} tweets`)
-  
+
   // TODO: this should eventually store ALL tweets instead of one at a time:
   //var tweet = response.statuses[Math.floor(Math.random() * response.statuses.length)]
   const tweets = response.statuses;
-  
+
   for (var i = 0; i < tweets.length; i++) {
     var tweet = tweets[i]
-    
+
     var newTweet = new tweetModel({
       id: tweet.id,
       text: tweet.text,
@@ -178,11 +178,11 @@ function storeTweets(response) {
       favorites: tweet.favorite_count,
       approved: false,
     })
-  
+
     newTweet.save(function(err, tweet) {
-      if(err) 
+      if(err)
         return console.log('tweet already exists', i)
-      
+
       console.log('tweet added to db', tweet.id)
     })
   }
