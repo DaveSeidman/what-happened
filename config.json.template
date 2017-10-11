@@ -1,0 +1,15 @@
+{
+  "twitter": {
+    "consumer_key": "",
+    "consumer_secret": ""
+  },
+  "aws": {
+    "user": "",
+    "host": ""
+  },
+  "mongo": {
+    "user": "",
+    "pass": "",
+    "db": ""
+  }
+}
