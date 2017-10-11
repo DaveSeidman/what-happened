@@ -4,32 +4,37 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "npm run express | npm run devserver",
+    "express": "node server.js",
+    "devserver": "webpack-dev-server",
+    "deploy": "node deploy"
   },
   "dependencies": {
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "css-loader": "^0.28.7",
     "express": "^4.16.2",
-    "extract-text-webpack-plugin": "^3.0.1",
-    "gulp": "^3.9.1",
-    "gulp-rsync": "0.0.8",
-    "html-webpack-plugin": "^2.30.1",
     "mongoose": "^4.12.1",
-    "node-sass": "^4.5.3",
     "path": "^0.12.7",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "request": "^2.83.0",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.19.0",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.1"
+    "request": "^2.83.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1"
+    "babel-preset-react": "^6.24.1",
+    "eslint-plugin-import": "^2.7.0",
+    "gulp-webpack": "^1.5.0",
+    "webpack": "^3.6.0",
+    "rsync": "^0.6.1",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.0",
+    "webpack-dev-server": "^2.9.1",
+    "node-sass": "^4.5.3",
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.1",
+    "html-webpack-plugin": "^2.30.1"
   }
 }

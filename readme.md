@@ -8,3 +8,13 @@ The mechanic of the site is to allow users to tweet with the hashtag
 /#WhatHappenedInVegas already attached, then hopefully go to one of the sites
 we link to and donate their money, time, phonecalls, etc. to moving us towards a
 safer society via better gun control.
+
+
+# Development:
+
+`npm start`
+
+
+# Deployment:
+
+`npm run deploy`

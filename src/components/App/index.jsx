@@ -3,26 +3,7 @@ import Post from '../Post/';
 import TweetList from '../TweetList/';
 import './scss/App.scss';
 
-const tempTweets = [
-  {
-    user: {
-      photo: 'img/users/dave.jpg',
-      name: 'dave blastman',
-    },
-    tweet: {
-      text: 'this is my first ever tweet!',
-    },
-  },
-  {
-    user: {
-      photo: 'img/users/jon.jpg',
-      name: 'jon seidman',
-    },
-    tweet: {
-      text: 'another tweet here',
-    },
-  },
-];
+const isLocal = window.location.hostname === 'localhost';
 
 export default class App extends Component {
   constructor(props) {
@@ -37,8 +18,6 @@ export default class App extends Component {
   }
 
   update() {
-    tempTweets[0].user.name = 'I changed this!!!';
-
     const httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = (() => {
       if (httpRequest.readyState === XMLHttpRequest.DONE) {
@@ -50,7 +29,10 @@ export default class App extends Component {
         }
       }
     });
-    httpRequest.open('GET', 'http://localhost:3000/getAllTweets');
+
+    httpRequest.open('GET', isLocal
+      ? 'http://localhost:3000/getAllTweets'
+      : '/getAllTweets');
     httpRequest.send();
   }
 
@@ -69,4 +51,3 @@ export default class App extends Component {
     );
   }
 }
-
